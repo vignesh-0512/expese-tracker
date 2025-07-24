@@ -1,0 +1,9 @@
+{
+    "budget": 10000.0,
+    "expenses": [
+        {
+            "description": "test",
+            "amount": 212.0
+        }
+    ]
+}

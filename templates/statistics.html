@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #dfe9f3, #ffffff);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 90%;
+      margin: auto;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #3b3b98;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .stats p {
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+
+    #myChart {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 350px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 10px 20px;
+      background-color: #3b3b98;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #6c5ce7;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .stats p {
+        font-size: 0.95rem;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Budget Statistics</h1>
+    <div class="stats">
+      <p><strong>💰 Budget:</strong> ₹{{ data.budget }}</p>
+      <p><strong>🧾 Total Spent:</strong> ₹{{ total_spent }}</p>
+      <p><strong>💵 Remaining Balance:</strong> ₹{{ balance }}</p>
+    </div>
+
+    <canvas id="myChart"></canvas>
+
+    <a href="/" class="btn">← Back to Home</a>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Spent', 'Remaining'],
+        datasets: [{
+          data: [{{ total_spent }}, {{ balance }}],
+          backgroundColor: ['#ff7675', '#55efc4'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#2d3436',
+              font: {
+                size: 14
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
